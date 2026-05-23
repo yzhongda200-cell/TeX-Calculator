@@ -92,6 +92,22 @@
 \def\xx@nummult@switch@c#1#2#3#4{%
 	#3[#4#2]#1%
 }
+\def\xx@ifmt#1{%
+	\ifx\xx@relax#1\xx@relax
+		\expandafter\@firstoftwo%
+	\else
+		\expandafter\@secondoftwo%
+	\fi%
+}
+\def\xx@ifx#1#2{%
+	\ifx#1#2%
+		\expandafter\@firstoftwo%
+	\else
+		\expandafter\@secondoftwo%
+	\fi%
+}
+\long\def\@firstoftwo#1#2{#1}
+\long\def\@secondoftwo#1#2{#2}
 \expandafter\def\csname xx@add@0@0@0\endcsname{00}
 \expandafter\def\csname xx@add@0@0@1\endcsname{01}
 \expandafter\def\csname xx@add@0@0@2\endcsname{02}
