@@ -124,6 +124,8 @@
 		\expandafter\@secondoftwo%
 	\fi%
 }
+\long\def\@firstoftwo#1#2{#1}
+\long\def\@secondoftwo#1#2{#2}
 \def\xx@comp@add#1#2#3{\csname xx@add@#2@#1@#3\endcsname}
 \expandafter\def\csname xx@add@0@0@0\endcsname{00}
 \expandafter\def\csname xx@add@0@0@1\endcsname{01}
