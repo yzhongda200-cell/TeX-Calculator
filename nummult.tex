@@ -69,17 +69,37 @@
 		{\xx@ifx{#5}{.}
 				{\xx@nummult@add@a#1.|#2\xx@relax#3\xx@relax#6\xx@relax}
 				{\xx@ifmt{#6}
-					{\expandafter\expandafter\expandafter\xx@numswitch@b\csname xx@add@#2@#3@#5\endcsname{#1}}
-					{\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\xx@nummult@add@a\expandafter\expandafter\expandafter\xx@numswitch@a\csname xx@add@#2@#3@#5\endcsname{#1}\xx@relax0\xx@relax#6\xx@relax}}}
+					{\expandafter\expandafter\expandafter\xx@nummult@switch@b\csname xx@add@#2@#3@#5\endcsname{#1}}
+					{\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\xx@nummult@add@a\expandafter\expandafter\expandafter\xx@nummult@switch@a\csname xx@add@#2@#3@#5\endcsname{#1}\xx@relax0\xx@relax#6\xx@relax}}}
 		{\xx@ifx{#3}{.}
 			{\xx@ifx{#5}{.}
 				{\xx@nummult@add@a#1.|#2\xx@relax#4\xx@relax#6\xx@relax}
 				{\xx@nummult@add@a#1.|#2\xx@relax#4\xx@relax#5#6\xx@relax}}
 			{\xx@ifmt{#6}
-				{\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\xx@nummult@add@a\expandafter\expandafter\expandafter\xx@numswitch@a\csname xx@add@#2@#3@#5\endcsname{#1}\xx@relax#4\xx@relax0\xx@relax}
+				{\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\xx@nummult@add@a\expandafter\expandafter\expandafter\xx@nummult@switch@a\csname xx@add@#2@#3@#5\endcsname{#1}\xx@relax#4\xx@relax0\xx@relax}
 				{\xx@ifx{#5}{.}
 					{\xx@nummult@add@a#1.|#2\xx@relax#3#4\xx@relax#6\xx@relax}
-						{\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\xx@nummult@add@a\expandafter\expandafter\expandafter\xx@numswitch@a\csname xx@add@#2@#3@#5\endcsname{#1}\xx@relax#4\xx@relax#6\xx@relax}}}}%
+						{\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\xx@nummult@add@a\expandafter\expandafter\expandafter\xx@nummult@switch@a\csname xx@add@#2@#3@#5\endcsname{#1}\xx@relax#4\xx@relax#6\xx@relax}}}}%
+}
+\def\xx@numoutput#1{%
+	\xx@numoutput@a#1\xx@relax%
+}
+\def\xx@numoutput@a#1#2\xx@relax{%
+	\xx@ifmt{#2}
+		{#1}
+		{\xx@ifx{#1}{0}
+			{\xx@numoutput@a#2\xx@relax}
+			{\xx@ifx{#1}{.}
+				{0.#2}
+				{#1#2}}}%
+}
+\def\xx@monoreverse#1{%
+	\xx@monoreverse@a\xx@relax#1\xx@relax%
+}
+\def\xx@monoreverse@a#1\xx@relax#2#3\xx@relax{%
+	\xx@ifmt{#3}
+		{#2#1}
+		{\xx@monoreverse@a#2#1\xx@relax#3\xx@relax}%
 }
 \def\xx@nummult@switch@a#1#2#3{%
 	#3#2|#1%
