@@ -1,1 +1,3 @@
-純正TeXで使用可能な，十進有限小数に対応した加減算器と乗算器を提供します．
+- usable in plain TeX
+- fully expandable from the first token
+- arbitrary-precision decimal arithmetic
