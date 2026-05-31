@@ -1,0 +1,112 @@
+\def\xx@relax{\xx@relax@}
+\def\nimsum#1#2{%
+	\romannumeral-`?\xx@nimsum[0][0]\xx@relax#1.\xx@relax#2.\xx@relax\xx@relax%
+}
+\def\xx@nimsum#1[#2]#3[#4]\xx@relax#5#6\xx@relax#7#8\xx@relax{%
+	\xx@ifmt{#6#8}
+		{\xx@nimsum@a#1\xx@relax#3\xx@relax
+			{\xx@ifx{#2}{#4}
+				{\xx@nimsum@b||0\xx@relax}
+				{\xx@nimsum@b||1\xx@relax}}
+			{\xx@ifx{#2}{#4}
+				{\xx@nimsum[0][0]\xx@relax#3.\xx@relax#1.\xx@relax0}
+				{\xx@nimsum[0][0]\xx@relax#3.\xx@relax#1.\xx@relax1}}}
+		{\xx@ifmt{#6}
+			{\xx@nimsum#3[#4]#1[#2]\xx@relax#7#8\xx@relax#5\xx@relax}
+			{\xx@ifmt{#1}
+				{\expandafter\expandafter\expandafter\xx@nimsum\csname xx@nimsum@#2#5\endcsname{#1}#3[#4]\xx@relax#6\xx@relax#7#8\xx@relax}
+				{\expandafter\xx@nimsum\romannumeral-`?\expandafter\expandafter\expandafter\xx@nimsum@snap\csname xx@nimsum@#2#5\endcsname{#1}#3[#4]\xx@relax#6\xx@relax#7#8\xx@relax}}}%
+}
+\def\xx@nimsum@a#1#2\xx@relax#3#4\xx@relax{%
+	\xx@ifmt{#2#4}
+		{\xx@ifx{0}{#1}
+			{\xx@ifx{0}{#3}
+				{\@firstoftwo}
+				{\@secondoftwo}}
+			{\@secondoftwo}}
+		{\@secondoftwo}%
+}
+\def\xx@nimsum@b#1|#2|#3#4\xx@relax#5{%
+	\xx@ifx{#5}{\xx@relax}
+		{\xx@ifmt{#1}
+			{#3}
+			{\xx@ifmt{#4}
+				{\expandafter\expandafter\expandafter\xx@nimsum@output\csname xx@add@#1@#3\endcsname{}#2\xx@relax}
+				{\expandafter\expandafter\expandafter\xx@nimsum@b\csname xx@add@#1@#3\endcsname{}#2|#4\xx@relax\xx@relax}}}
+		{\xx@ifmt{#1}
+			{\xx@nimsum@b#5||#3#4\xx@relax}
+			{\xx@ifmt{#4}
+				{\expandafter\xx@nimsum@b\expandafter|\expandafter|\romannumeral-`?\expandafter\expandafter\expandafter\xx@nimsum@switch\csname xx@add@#1@#3\endcsname{#2}\xx@relax\xx@relax#5}
+				{\expandafter\expandafter\expandafter\xx@nimsum@b\csname xx@add@#1@#3\endcsname{#2}|#4\xx@relax#5}}}%
+}
+\def\xx@nimsum@switch#1|#2\xx@relax{%
+	\xx@ifx{0}{#1}
+		{#2}
+		{#2#1}%
+}
+\def\xx@nimsum@output#1|#2\xx@relax{%
+	\xx@ifx{0}{#1}
+		{#2}
+		{#1#2}%
+}
+\def\xx@nimsum@snap#1{%
+	\xx@ifx{0}{#1}
+		{}
+		{#1}%
+}
+\def\xx@ifmt#1{%
+	\ifx\xx@relax#1\xx@relax
+		\expandafter\@firstoftwo%
+	\else
+		\expandafter\@secondoftwo%
+	\fi%
+}
+\def\xx@ifx#1#2{%
+	\ifx#1#2%
+		\expandafter\@firstoftwo%
+	\else
+		\expandafter\@secondoftwo%
+	\fi%
+}
+\long\def\@firstoftwo#1#2{#1}
+\long\def\@secondoftwo#1#2{#2}
+\expandafter\def\csname xx@nimsum@00\endcsname#1{#10[0]}
+\expandafter\def\csname xx@nimsum@01\endcsname#1{#10[1]}
+\expandafter\def\csname xx@nimsum@02\endcsname#1{#11[0]}
+\expandafter\def\csname xx@nimsum@03\endcsname#1{#11[1]}
+\expandafter\def\csname xx@nimsum@04\endcsname#1{#12[0]}
+\expandafter\def\csname xx@nimsum@05\endcsname#1{#12[1]}
+\expandafter\def\csname xx@nimsum@06\endcsname#1{#13[0]}
+\expandafter\def\csname xx@nimsum@07\endcsname#1{#13[1]}
+\expandafter\def\csname xx@nimsum@08\endcsname#1{#14[0]}
+\expandafter\def\csname xx@nimsum@09\endcsname#1{#14[1]}
+\expandafter\def\csname xx@nimsum@10\endcsname#1{#15[0]}
+\expandafter\def\csname xx@nimsum@11\endcsname#1{#15[1]}
+\expandafter\def\csname xx@nimsum@12\endcsname#1{#16[0]}
+\expandafter\def\csname xx@nimsum@13\endcsname#1{#16[1]}
+\expandafter\def\csname xx@nimsum@14\endcsname#1{#17[0]}
+\expandafter\def\csname xx@nimsum@15\endcsname#1{#17[1]}
+\expandafter\def\csname xx@nimsum@16\endcsname#1{#18[0]}
+\expandafter\def\csname xx@nimsum@17\endcsname#1{#18[1]}
+\expandafter\def\csname xx@nimsum@18\endcsname#1{#19[0]}
+\expandafter\def\csname xx@nimsum@19\endcsname#1{#19[1]}
+\expandafter\def\csname xx@add@0@0\endcsname#1{0|#10}
+\expandafter\def\csname xx@add@0@1\endcsname#1{0|#12}
+\expandafter\def\csname xx@add@0@2\endcsname#1{0|#14}
+\expandafter\def\csname xx@add@0@3\endcsname#1{0|#16}
+\expandafter\def\csname xx@add@0@4\endcsname#1{0|#18}
+\expandafter\def\csname xx@add@0@5\endcsname#1{1|#10}
+\expandafter\def\csname xx@add@0@6\endcsname#1{1|#12}
+\expandafter\def\csname xx@add@0@7\endcsname#1{1|#14}
+\expandafter\def\csname xx@add@0@8\endcsname#1{1|#16}
+\expandafter\def\csname xx@add@0@9\endcsname#1{1|#18}
+\expandafter\def\csname xx@add@1@0\endcsname#1{0|#11}
+\expandafter\def\csname xx@add@1@1\endcsname#1{0|#13}
+\expandafter\def\csname xx@add@1@2\endcsname#1{0|#15}
+\expandafter\def\csname xx@add@1@3\endcsname#1{0|#17}
+\expandafter\def\csname xx@add@1@4\endcsname#1{0|#19}
+\expandafter\def\csname xx@add@1@5\endcsname#1{1|#11}
+\expandafter\def\csname xx@add@1@6\endcsname#1{1|#13}
+\expandafter\def\csname xx@add@1@7\endcsname#1{1|#15}
+\expandafter\def\csname xx@add@1@8\endcsname#1{1|#17}
+\expandafter\def\csname xx@add@1@9\endcsname#1{1|#19}
