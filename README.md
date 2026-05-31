@@ -1,3 +1,4 @@
-- usable in plain TeX
-- fully expandable from the first token
-- arbitrary-precision decimal arithmetic
+- Usable in plain TeX
+- Fully expandable from the first token
+- Arbitrary-precision decimal arithmetic
+- Register-free
