@@ -1,3 +1,4 @@
+\catcode`\@=11
 \def\xx@relax{\xx@relax@}
 \def\nimsum#1#2{%
 	\romannumeral-`?\xx@nimsum[0][0]\xx@relax#1.\xx@relax#2.\xx@relax\xx@relax%
@@ -109,4 +110,5 @@
 \expandafter\def\csname xx@add@1@6\endcsname#1{1|#13}
 \expandafter\def\csname xx@add@1@7\endcsname#1{1|#15}
 \expandafter\def\csname xx@add@1@8\endcsname#1{1|#17}
-\expandafter\def\csname xx@add@1@9\endcsname#1{1|#19}
+\expandafter\def\csname xx@add@1@9\endcsname#1{1|#19
+\catcode`\@=12
