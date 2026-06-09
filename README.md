@@ -1,3 +1,9 @@
+## TeX-Calculator
+
+A collection of arbitrary-precision decimal arithmetic macros for plain TeX and LaTeX.
+
+The project currently provides macros for addition/subtraction, multiplication, and nim-sum computation. All macros are fully expandable from the first token, require no registers, and can be used directly in expansion-only contexts such as `\edef` and `\romannumeral`.
+
 ## Usage
 
 First, download the files and place them in your working directory. Then load the files you want to use:
