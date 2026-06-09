@@ -1,4 +1,4 @@
-## TeX-Calculator
+# TeX-Calculator
 
 A collection of arbitrary-precision decimal arithmetic macros for plain TeX and LaTeX.
 
