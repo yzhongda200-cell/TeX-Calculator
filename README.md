@@ -34,13 +34,13 @@ This may sound impossible, but it is unfortunately true.
 Because the macros are fully expandable from the first token, you can use them directly in expansion-only contexts:
 
 ```tex
-\edef\result{\nummult{1.5}{3.141592}} % \result is defined as 4.712388
+\edef\result{\nummult{1.5}{3.141592}} % \result is defined as 4.7123880
 ```
 
 You can even use them directly after primitives such as `\romannumeral`:
 
 ```tex
-\romannumeral\numadd{2}{3} % expands to v
+\romannumeral\numadd{20}{-16} % expands to iv
 ```
 
 ## Performance and Limitations
