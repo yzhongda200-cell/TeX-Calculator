@@ -12,6 +12,7 @@ First, download the files and place them in your working directory. Then load th
 \input{numadd.tex}
 \input{nummult.tex}
 \input{nimsum.tex}
+\input{ifcompare.tex}
 ```
 
 The files are completely independent, so you only need to load the ones you actually use.
