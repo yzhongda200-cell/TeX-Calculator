@@ -2,7 +2,7 @@
 
 A collection of arbitrary-precision decimal arithmetic macros for plain TeX and LaTeX.
 
-The project currently provides macros for addition/subtraction, multiplication, and nim-sum computation. All macros are fully expandable from the first token, require no registers, and can be used directly in expansion-only contexts such as `\edef` and `\romannumeral`.
+The project currently provides macros for addition/subtraction, multiplication, nim-sum, and comparison. All macros are fully expandable from the first token, require no registers, and can be used directly in expansion-only contexts such as `\edef` and `\romannumeral`.
 
 ## Usage
 
@@ -14,7 +14,7 @@ First, download the files and place them in your working directory. Then load th
 \input{nimsum.tex}
 ```
 
-The three files are completely independent, so you only need to load the ones you actually use.
+The files are completely independent, so you only need to load the ones you actually use.
 
 For complete examples, see `sample_for_LaTeX.tex` and `sample_for_pdfTeX.tex`.
 
@@ -43,6 +43,39 @@ You can even use them directly after primitives such as `\romannumeral`:
 \romannumeral\numadd{20}{-16} % expands to iv
 ```
 
+## Comparison
+
+The file `ifcompare.tex` provides the expandable conditional macro `\ifcompare`.
+
+Syntax:
+
+```tex
+\ifcompare[<number1>]<operator>[<number2>]{<true>}{<false>}
+```
+
+Supported comparison operators are:
+
+* `<`
+* `>`
+* `=`
+* `<=`
+* `>=`
+* `<>`
+
+Examples:
+
+```tex
+\ifcompare[123.45]>[100]{true}{false}
+% expands to true
+
+\ifcompare[-1.5]<>[-1.5]
+  {true}
+  {false}
+% expands to false
+```
+
+Like the arithmetic macros, `\ifcompare` is fully expandable from the first token and requires no registers.
+
 ## Performance and Limitations
 
 Although the macros are advertised as arbitrary precision, practical limits are imposed by available memory.
@@ -63,6 +96,8 @@ Therefore, nested calls such as
 
 ```tex
 \numadd{\numadd{1}{2}}{3}
+
+\ifcompare[\nummult{2}{3}]=[6]{yes}{no}
 ```
 
 are not supported.
