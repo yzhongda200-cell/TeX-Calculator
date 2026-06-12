@@ -9,10 +9,10 @@ The project currently provides macros for addition/subtraction, multiplication, 
 First, download the files and place them in your working directory. Then load the files you want to use:
 
 ```tex
-\input{numadd.tex}
-\input{nummult.tex}
-\input{nimsum.tex}
-\input{ifcompare.tex}
+\input{numadd.tex} % for addition and subtraction
+\input{nummult.tex} % for multiplication
+\input{nimsum.tex} % for nim-sum
+\input{ifcompare.tex} % for comparison
 ```
 
 The files are completely independent, so you only need to load the ones you actually use.
@@ -87,7 +87,7 @@ With LaTeX engines, you can perform calculations involving tens of thousands or 
 * Multiplication: about 5 seconds
 * Nim-sum: about 2 seconds
 
-When using plain TeX engines such as pdfTeX, memory limits (particularly on argument size and expansion depth) significantly reduce the maximum supported precision. Nevertheless, you can still perform exact calculations involving several dozen digits.
+When using plain TeX engines such as pdfTeX, memory limits (particularly on argument size) significantly reduce the maximum supported precision. Nevertheless, you can still perform exact calculations involving several dozen digits.
 
 ## Limitations
 
@@ -96,6 +96,9 @@ The arguments of these macros are treated as numeric literals and are not expand
 Therefore, nested calls such as
 
 ```tex
+\edef\result{\numadd{4}{3.46}}
+\nummult{34}{\result}
+
 \numadd{\numadd{1}{2}}{3}
 
 \ifcompare[\nummult{2}{3}]=[6]{yes}{no}
