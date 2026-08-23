@@ -1,130 +1,130 @@
-\catcode`\@=11
+\catcode`\@=11\relax
 \def\ifcompare[#1]#2#3[#4]{%
-	\romannumeral-`?\tcalc@ifmt{#3}
-		{\tcalc@ifx{#2}{=}
-			{\expandafter\tcalc@ifcompare@eq\romannumeral-`?\tcalc@ifcompare@arrange{#1}{#4}}
-			{\tcalc@ifx{#2}{<}
-				{\expandafter\tcalc@ifcompare@lt\romannumeral-`?\tcalc@ifcompare@arrange{#1}{#4}}
-				{\tcalc@ifx{#2}{>}
-					{\expandafter\tcalc@ifcompare@lt\romannumeral-`?\tcalc@ifcompare@arrange{#4}{#1}}
+	\romannumeral-`?\zycalc@ifmt{#3}
+		{\zycalc@ifx{#2}{=}
+			{\expandafter\zycalc@ifcompare@eq\romannumeral-`?\zycalc@ifcompare@arrange{#1}{#4}}
+			{\zycalc@ifx{#2}{<}
+				{\expandafter\zycalc@ifcompare@lt\romannumeral-`?\zycalc@ifcompare@arrange{#1}{#4}}
+				{\zycalc@ifx{#2}{>}
+					{\expandafter\zycalc@ifcompare@lt\romannumeral-`?\zycalc@ifcompare@arrange{#4}{#1}}
 					{}}}}
-		{\tcalc@ifcompare@a[#1]#2#3[#4]}%
+		{\zycalc@ifcompare@a[#1]#2#3[#4]}%
 }
-\def\tcalc@ifcompare@a[#1]#2#3#4[#5]{%
-	\tcalc@ifmt{#4}
-		{\tcalc@ifx{#3}{=}
-			{\tcalc@ifx{#2}{<}
-				{\expandafter\tcalc@ifcompare@lt\romannumeral-`?\tcalc@ifcompare@arrange{#5}{#1}
+\def\zycalc@ifcompare@a[#1]#2#3#4[#5]{%
+	\zycalc@ifmt{#4}
+		{\zycalc@ifx{#3}{=}
+			{\zycalc@ifx{#2}{<}
+				{\expandafter\zycalc@ifcompare@lt\romannumeral-`?\zycalc@ifcompare@arrange{#5}{#1}
 					{\@secondoftwo}
 					{\@firstoftwo}}
-				{\tcalc@ifx{#2}{>}
-					{\expandafter\tcalc@ifcompare@lt\romannumeral-`?\tcalc@ifcompare@arrange{#1}{#5}
+				{\zycalc@ifx{#2}{>}
+					{\expandafter\zycalc@ifcompare@lt\romannumeral-`?\zycalc@ifcompare@arrange{#1}{#5}
 						{\@secondoftwo}
 						{\@firstoftwo}}
 					{}}}
-			{\tcalc@ifx{#3}{>}
-				{\tcalc@ifx{#2}{<}
-					{\expandafter\tcalc@ifcompare@eq\romannumeral-`?\tcalc@ifcompare@arrange{#1}{#5}
+			{\zycalc@ifx{#3}{>}
+				{\zycalc@ifx{#2}{<}
+					{\expandafter\zycalc@ifcompare@eq\romannumeral-`?\zycalc@ifcompare@arrange{#1}{#5}
 						{\@secondoftwo}
 						{\@firstoftwo}}
 					{}}
 				{}}}
 		{}%
 }
-\def\tcalc@ifcompare@lt#1#2{%
-	\tcalc@ifcompare@lt@a#1\tcalc@relax#2\tcalc@relax%
+\def\zycalc@ifcompare@lt#1#2{%
+	\zycalc@ifcompare@lt@a#1\zycalc@relax#2\zycalc@relax%
 }
-\def\tcalc@ifcompare@lt@a#1#2\tcalc@relax#3#4\tcalc@relax{%
-	\tcalc@ifx{#1}{-}
-		{\tcalc@ifx{#3}{-}
-			{\tcalc@ifcompare@lt@b#4\tcalc@relax#2\tcalc@relax}
+\def\zycalc@ifcompare@lt@a#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifx{#1}{-}
+		{\zycalc@ifx{#3}{-}
+			{\zycalc@ifcompare@lt@b#4\zycalc@relax#2\zycalc@relax}
 			{\@firstoftwo}}
-		{\tcalc@ifx{#3}{-}
+		{\zycalc@ifx{#3}{-}
 			{\@secondoftwo}
-			{\tcalc@ifcompare@lt@b#1#2\tcalc@relax#3#4\tcalc@relax}}%
+			{\zycalc@ifcompare@lt@b#1#2\zycalc@relax#3#4\zycalc@relax}}%
 }
-\def\tcalc@ifcompare@lt@b#1#2\tcalc@relax#3#4\tcalc@relax{%
-	\tcalc@ifmt{#2}
-		{\csname tcalc@ifcompare@#1@#3\endcsname}
-		{\tcalc@ifx{#1}{#3}
-			{\tcalc@ifcompare@lt@b#2\tcalc@relax#4\tcalc@relax}
-			{\csname tcalc@ifcompare@#1@#3\endcsname}}%
+\def\zycalc@ifcompare@lt@b#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\csname zycalc@ifcompare@#1@#3\endcsname}
+		{\zycalc@ifx{#1}{#3}
+			{\zycalc@ifcompare@lt@b#2\zycalc@relax#4\zycalc@relax}
+			{\csname zycalc@ifcompare@#1@#3\endcsname}}%
 }
-\def\tcalc@ifcompare@eq#1#2{%
-	\tcalc@ifcompare@eq@a#1\tcalc@relax#2\tcalc@relax%
+\def\zycalc@ifcompare@eq#1#2{%
+	\zycalc@ifcompare@eq@a#1\zycalc@relax#2\zycalc@relax%
 }
-\def\tcalc@ifcompare@eq@a#1#2\tcalc@relax#3#4\tcalc@relax{%
-	\tcalc@ifx{#1}{-}
-		{\tcalc@ifx{#3}{-}
-			{\tcalc@ifcompare@eq@b#2\tcalc@relax#4\tcalc@relax}
+\def\zycalc@ifcompare@eq@a#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifx{#1}{-}
+		{\zycalc@ifx{#3}{-}
+			{\zycalc@ifcompare@eq@b#2\zycalc@relax#4\zycalc@relax}
 			{\@secondoftwo}}
-		{\tcalc@ifx{#3}{-}
+		{\zycalc@ifx{#3}{-}
 			{\@secondoftwo}
-			{\tcalc@ifcompare@eq@b#1#2\tcalc@relax#3#4\tcalc@relax}}%
+			{\zycalc@ifcompare@eq@b#1#2\zycalc@relax#3#4\zycalc@relax}}%
 }
-\def\tcalc@ifcompare@eq@b#1#2\tcalc@relax#3#4\tcalc@relax{%
-	\tcalc@ifmt{#2}
-		{\tcalc@ifx{#1}{#3}}
-		{\tcalc@ifx{#1}{.}
-			{\tcalc@ifcompare@eq@b#2\tcalc@relax#4\tcalc@relax}
-			{\tcalc@ifx{#1}{#3}
-				{\tcalc@ifcompare@eq@b#2\tcalc@relax#4\tcalc@relax}
+\def\zycalc@ifcompare@eq@b#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\zycalc@ifx{#1}{#3}}
+		{\zycalc@ifx{#1}{.}
+			{\zycalc@ifcompare@eq@b#2\zycalc@relax#4\zycalc@relax}
+			{\zycalc@ifx{#1}{#3}
+				{\zycalc@ifcompare@eq@b#2\zycalc@relax#4\zycalc@relax}
 				{\@secondoftwo}}}%
 }
-\def\tcalc@ifcompare@arrange#1#2{%
-	\expandafter\tcalc@ifcompare@reverse\romannumeral-`?\tcalc@ifcompare@arrange@a#1.\tcalc@relax#2.\tcalc@relax%
+\def\zycalc@ifcompare@arrange#1#2{%
+	\expandafter\zycalc@ifcompare@reverse\romannumeral-`?\zycalc@ifcompare@arrange@a#1.\zycalc@relax#2.\zycalc@relax%
 }
-\def\tcalc@ifcompare@arrange@a#1.#2\tcalc@relax#3.#4\tcalc@relax{%
-	\tcalc@ifmt{#2}
-		{\tcalc@ifmt{#4}
-			{\tcalc@ifcompare@arrange@int{#1}{#3}}
-			{\tcalc@ifcompare@arrange@float#1.0.\tcalc@relax#3.#4\tcalc@relax}}
-		{\tcalc@ifmt{#4}
-			{\tcalc@ifcompare@arrange@float#1.#2\tcalc@relax#3.0.\tcalc@relax}
-			{\tcalc@ifcompare@arrange@float#1.#2\tcalc@relax#3.#4\tcalc@relax}}%
+\def\zycalc@ifcompare@arrange@a#1.#2\zycalc@relax#3.#4\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\zycalc@ifmt{#4}
+			{\zycalc@ifcompare@arrange@int{#1}{#3}}
+			{\zycalc@ifcompare@arrange@float#1.0.\zycalc@relax#3.#4\zycalc@relax}}
+		{\zycalc@ifmt{#4}
+			{\zycalc@ifcompare@arrange@float#1.#2\zycalc@relax#3.0.\zycalc@relax}
+			{\zycalc@ifcompare@arrange@float#1.#2\zycalc@relax#3.#4\zycalc@relax}}%
 }
-\def\tcalc@ifcompare@arrange@int#1#2{%
-	\expandafter\tcalc@ifcompare@digitarrange\romannumeral-`?\tcalc@ifcompare@reverse{#1}{#2}%
+\def\zycalc@ifcompare@arrange@int#1#2{%
+	\expandafter\zycalc@ifcompare@digitarrange\romannumeral-`?\zycalc@ifcompare@reverse{#1}{#2}%
 }
-\def\tcalc@ifcompare@arrange@float#1.#2.\tcalc@relax#3.#4.\tcalc@relax{%
-	\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\tcalc@ifcompare@arrange@float@aa\expandafter\tcalc@ifcompare@arrange@float@a\expandafter{\romannumeral-`?\expandafter\tcalc@ifcompare@digitarrange\romannumeral-`?\tcalc@ifcompare@reverse{#1}{#3}}{\romannumeral-`?\expandafter\tcalc@ifcompare@reverse\romannumeral-`?\tcalc@ifcompare@digitarrange{#2}{#4}}%
+\def\zycalc@ifcompare@arrange@float#1.#2.\zycalc@relax#3.#4.\zycalc@relax{%
+	\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\expandafter\zycalc@ifcompare@arrange@float@aa\expandafter\zycalc@ifcompare@arrange@float@a\expandafter{\romannumeral-`?\expandafter\zycalc@ifcompare@digitarrange\romannumeral-`?\zycalc@ifcompare@reverse{#1}{#3}}{\romannumeral-`?\expandafter\zycalc@ifcompare@reverse\romannumeral-`?\zycalc@ifcompare@digitarrange{#2}{#4}}%
 }
-\def\tcalc@ifcompare@arrange@float@a#1#2{#2#1}
-\def\tcalc@ifcompare@arrange@float@aa#1#2#3#4{{#1.#3}{#2.#4}}
-\def\tcalc@ifcompare@digitarrange#1#2{%
-	\tcalc@ifcompare@digitarrange@a\tcalc@relax#1\tcalc@relax\tcalc@relax#2\tcalc@relax%
+\def\zycalc@ifcompare@arrange@float@a#1#2{#2#1}
+\def\zycalc@ifcompare@arrange@float@aa#1#2#3#4{{#1.#3}{#2.#4}}
+\def\zycalc@ifcompare@digitarrange#1#2{%
+	\zycalc@ifcompare@digitarrange@a\zycalc@relax#1\zycalc@relax\zycalc@relax#2\zycalc@relax%
 }
-\def\tcalc@ifcompare@digitarrange@a#1\tcalc@relax#2#3\tcalc@relax#4\tcalc@relax#5#6\tcalc@relax{%
-	\tcalc@ifmt{#3}
-		{\tcalc@ifmt{#6}
+\def\zycalc@ifcompare@digitarrange@a#1\zycalc@relax#2#3\zycalc@relax#4\zycalc@relax#5#6\zycalc@relax{%
+	\zycalc@ifmt{#3}
+		{\zycalc@ifmt{#6}
 			{{#1#2}{#4#5}}
-			{\tcalc@ifcompare@digitarrange@a#1#2\tcalc@relax0\tcalc@relax#4#5\tcalc@relax#6\tcalc@relax}}
-		{\tcalc@ifmt{#6}
-			{\tcalc@ifcompare@digitarrange@a#1#2\tcalc@relax#3\tcalc@relax#4#5\tcalc@relax0\tcalc@relax}
-			{\tcalc@ifcompare@digitarrange@a#1#2\tcalc@relax#3\tcalc@relax#4#5\tcalc@relax#6\tcalc@relax}}%
+			{\zycalc@ifcompare@digitarrange@a#1#2\zycalc@relax0\zycalc@relax#4#5\zycalc@relax#6\zycalc@relax}}
+		{\zycalc@ifmt{#6}
+			{\zycalc@ifcompare@digitarrange@a#1#2\zycalc@relax#3\zycalc@relax#4#5\zycalc@relax0\zycalc@relax}
+			{\zycalc@ifcompare@digitarrange@a#1#2\zycalc@relax#3\zycalc@relax#4#5\zycalc@relax#6\zycalc@relax}}%
 }
-\def\tcalc@ifcompare@reverse#1#2{%
-	\tcalc@ifcompare@reverse@a\tcalc@relax#1\tcalc@relax\tcalc@relax#2\tcalc@relax%
+\def\zycalc@ifcompare@reverse#1#2{%
+	\zycalc@ifcompare@reverse@a\zycalc@relax#1\zycalc@relax\zycalc@relax#2\zycalc@relax%
 }
-\def\tcalc@ifcompare@reverse@a#1\tcalc@relax#2#3\tcalc@relax#4\tcalc@relax#5#6\tcalc@relax{%
-	\tcalc@ifmt{#3}
-		{\tcalc@ifmt{#6}
+\def\zycalc@ifcompare@reverse@a#1\zycalc@relax#2#3\zycalc@relax#4\zycalc@relax#5#6\zycalc@relax{%
+	\zycalc@ifmt{#3}
+		{\zycalc@ifmt{#6}
 			{{#2#1}{#5#4}}
-			{\tcalc@ifcompare@reverse@a#1\tcalc@relax#2\tcalc@relax#5#4\tcalc@relax#6\tcalc@relax}}
-		{\tcalc@ifmt{#6}
-			{\tcalc@ifcompare@reverse@a#2#1\tcalc@relax#3\tcalc@relax#4\tcalc@relax#5\tcalc@relax}
-			{\tcalc@ifcompare@reverse@a#2#1\tcalc@relax#3\tcalc@relax#5#4\tcalc@relax#6\tcalc@relax}}%
+			{\zycalc@ifcompare@reverse@a#1\zycalc@relax#2\zycalc@relax#5#4\zycalc@relax#6\zycalc@relax}}
+		{\zycalc@ifmt{#6}
+			{\zycalc@ifcompare@reverse@a#2#1\zycalc@relax#3\zycalc@relax#4\zycalc@relax#5\zycalc@relax}
+			{\zycalc@ifcompare@reverse@a#2#1\zycalc@relax#3\zycalc@relax#5#4\zycalc@relax#6\zycalc@relax}}%
 }
-\def\tcalc@relax{\tcalc@relax@}
-\def\tcalc@ifx#1#2{%
+\def\zycalc@relax{\zycalc@relax@}
+\def\zycalc@ifx#1#2{%
 	\ifx#1#2%
 		\expandafter\@firstoftwo%
 	\else
 		\expandafter\@secondoftwo%
 	\fi%
 }
-\def\tcalc@ifmt#1{%
-	\ifx\tcalc@relax#1\tcalc@relax
+\def\zycalc@ifmt#1{%
+	\ifx\zycalc@relax#1\zycalc@relax
 		\expandafter\@firstoftwo%
 	\else
 		\expandafter\@secondoftwo%
@@ -132,104 +132,104 @@
 }
 \long\def\@firstoftwo#1#2{#1}
 \long\def\@secondoftwo#1#2{#2}
-\expandafter\def\csname tcalc@ifcompare@0@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@1\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@2\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@3\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@4\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@5\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@6\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@0@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@2\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@3\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@4\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@5\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@6\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@1@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@3\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@4\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@5\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@6\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@2@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@4\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@5\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@6\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@3@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@4\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@5\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@6\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@4@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@4\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@5\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@6\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@5@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@4\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@5\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@6\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@7\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@6@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@4\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@5\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@6\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@7\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@8\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@7@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@4\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@5\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@6\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@7\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@8\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@8@9\endcsname{\@firstoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@0\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@1\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@2\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@3\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@4\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@5\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@6\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@7\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@8\endcsname{\@secondoftwo}
-\expandafter\def\csname tcalc@ifcompare@9@9\endcsname{\@secondoftwo}
-\catcode`\@=12
+\expandafter\def\csname zycalc@ifcompare@0@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@1\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@2\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@3\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@4\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@5\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@6\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@0@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@2\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@3\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@4\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@5\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@6\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@1@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@3\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@4\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@5\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@6\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@2@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@4\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@5\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@6\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@3@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@4\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@5\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@6\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@4@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@4\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@5\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@6\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@5@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@4\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@5\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@6\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@7\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@6@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@4\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@5\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@6\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@7\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@8\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@7@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@4\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@5\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@6\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@7\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@8\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@8@9\endcsname{\@firstoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@0\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@1\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@2\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@3\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@4\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@5\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@6\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@7\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@8\endcsname{\@secondoftwo}
+\expandafter\def\csname zycalc@ifcompare@9@9\endcsname{\@secondoftwo}
+\catcode`\@=12\relax
