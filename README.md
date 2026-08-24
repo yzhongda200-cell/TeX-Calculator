@@ -2,7 +2,7 @@
 
 A collection of arbitrary-precision decimal arithmetic macros for plain TeX and LaTeX.
 
-The project currently provides macros for addition/subtraction, multiplication, nim-sum, and comparison. All macros are fully expandable from the first token, require no registers, and can be used directly in expansion-only contexts such as `\edef` and `\romannumeral`.
+The project currently provides macros for addition/subtraction, multiplication, nim-sum, and comparison. All macros are fully expandable from the first token, require no registers, and can be used directly in expansion-only contexts such as `\edef`, `\romannumeral`, and `\message`.
 
 ## Usage
 
