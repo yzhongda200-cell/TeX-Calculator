@@ -27,18 +27,25 @@
 			{\@secondoftwo}}
 		{\@secondoftwo}%
 }
-\def\zycalc@nimsum@b#1|#2|#3#4\zycalc@relax#5{%
+\def\zycalc@nimsum@b||#1\zycalc@relax#2{%
+	\zycalc@ifx{#2}{\zycalc@relax}
+		{#1}
+		{\zycalc@ifx{0}{#1}
+			{\zycalc@nimsum@b||#2\zycalc@relax}
+			{\zycalc@nimsum@c||#1\zycalc@relax#2}}%
+}
+\def\zycalc@nimsum@c#1|#2|#3#4\zycalc@relax#5{%
 	\zycalc@ifx{#5}{\zycalc@relax}
 		{\zycalc@ifmt{#1}
 			{#3}
 			{\zycalc@ifmt{#4}
 				{\expandafter\expandafter\expandafter\zycalc@nimsum@output\csname zycalc@nimsum@add@#1@#3\endcsname{}#2\zycalc@relax}
-				{\expandafter\expandafter\expandafter\zycalc@nimsum@b\csname zycalc@nimsum@add@#1@#3\endcsname{}#2|#4\zycalc@relax\zycalc@relax}}}
+				{\expandafter\expandafter\expandafter\zycalc@nimsum@c\csname zycalc@nimsum@add@#1@#3\endcsname{}#2|#4\zycalc@relax\zycalc@relax}}}
 		{\zycalc@ifmt{#1}
-			{\zycalc@nimsum@b#5||#3#4\zycalc@relax}
+			{\zycalc@nimsum@c#5||#3#4\zycalc@relax}
 			{\zycalc@ifmt{#4}
-				{\expandafter\zycalc@nimsum@b\expandafter|\expandafter|\romannumeral-`?\expandafter\expandafter\expandafter\zycalc@nimsum@switch\csname zycalc@nimsum@add@#1@#3\endcsname{#2}\zycalc@relax\zycalc@relax#5}
-				{\expandafter\expandafter\expandafter\zycalc@nimsum@b\csname zycalc@nimsum@add@#1@#3\endcsname{#2}|#4\zycalc@relax#5}}}%
+				{\expandafter\zycalc@nimsum@c\expandafter|\expandafter|\romannumeral-`?\expandafter\expandafter\expandafter\zycalc@nimsum@switch\csname zycalc@nimsum@add@#1@#3\endcsname{#2}\zycalc@relax\zycalc@relax#5}
+				{\expandafter\expandafter\expandafter\zycalc@nimsum@c\csname zycalc@nimsum@add@#1@#3\endcsname{#2}|#4\zycalc@relax#5}}}%
 }
 \def\zycalc@nimsum@switch#1|#2\zycalc@relax{%
 	\zycalc@ifx{0}{#1}
