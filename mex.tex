@@ -1,0 +1,235 @@
+\catcode`\@=11
+\long\def\mex#1{%
+	\tcalc@ifmt{#1}
+		{0}
+		{\expandafter\tcalc@mex@sort@reverse\expandafter{\romannumeral-`?#1}}%
+}
+\long\def\tcalc@mex#1\tcalc@relax#2{%
+	\tcalc@ifx\tcalc@mex@endignore{#2}
+		{\tcalc@mex@reverse\tcalc@relax#1\tcalc@relax}
+		{\tcalc@mex@ifneq{#1}{#2}
+			{\tcalc@mex@ignore{\tcalc@mex@reverse\tcalc@relax#1\tcalc@relax}}
+			{\expandafter\tcalc@mex\romannumeral-`?\tcalc@mex@step\tcalc@relax#1\tcalc@relax}}%
+}
+\def\tcalc@mex@step#1\tcalc@relax#2{%
+	\tcalc@ifx#2\tcalc@relax
+		{#11\tcalc@relax}
+		{\tcalc@ifx9#2
+			{\tcalc@mex@step#10\tcalc@relax}
+			{\csname tcalc@mex@add@\string#2\endcsname{#1}}}%
+}
+\def\tcalc@mex@reverse#1\tcalc@relax#2{%
+	\tcalc@ifx\tcalc@relax{#2}
+		{#1}
+		{\tcalc@ifx{ }{#2}
+			{\tcalc@mex@reverse#1\tcalc@relax}
+			{\tcalc@mex@reverse#2#1\tcalc@relax}}%
+}
+\def\tcalc@mex@ifneq#1#2{%
+	\tcalc@mex@ifneq@a#1\tcalc@relax#2\tcalc@relax%
+}
+\def\tcalc@mex@ifneq@a#1#2\tcalc@relax#3#4\tcalc@relax{%
+	\tcalc@ifmt{#2}
+		{\tcalc@ifmt{#4}
+			{\tcalc@ifx#1#3
+				{\@secondoftwo}
+				{\@firstoftwo}}
+			{\@firstoftwo}}
+		{\tcalc@ifmt{#4}
+			{\@firstoftwo}
+			{\tcalc@ifx#1#3
+				{\tcalc@mex@ifneq@a#2\tcalc@relax#4\tcalc@relax}
+				{\@firstoftwo}}}%
+}
+\def\tcalc@mex@sort@reverse#1{%
+	\expandafter\tcalc@ifmt\expandafter{\romannumeral-`?#1}
+		{0}
+		{\tcalc@mex@sort@reverse@a\tcalc@relax\tcalc@relax
+			#1\tcalc@relax}%
+}
+\def\tcalc@mex@sort@reverse@a#1\tcalc@relax#2\tcalc@relax#3{%
+	\tcalc@ifx\tcalc@relax{#3}
+		{\tcalc@ifmt{#1}
+			{\tcalc@ifmt{#2}
+				{0}
+				{\tcalc@mex@sort#2\tcalc@relax\tcalc@mex@endignore}}
+			{\tcalc@mex@sort@reverse@a\tcalc@relax#1|#2\tcalc@relax{#3}}}
+		{\expandafter\tcalc@ifmt\expandafter{\romannumeral-`?#3}
+			{\tcalc@mex@sort@reverse@a#1\tcalc@relax#2\tcalc@relax}
+			{\tcalc@ifmt{#1}
+				{\expandafter\tcalc@mex@sort@reverse@a\romannumeral-`?\expandafter\tcalc@mex@reverse\expandafter\tcalc@relax\romannumeral-`?#3\tcalc@relax\tcalc@relax#2\tcalc@relax}
+				{\tcalc@mex@sort@reverse@a\tcalc@relax#1|#2\tcalc@relax{#3}}}}%
+}
+\def\tcalc@mex@sort#1|#2\tcalc@relax{%
+	\tcalc@ifmt{#2}
+		{\tcalc@mex0\tcalc@relax{#1}}
+		{\tcalc@mex@sort@a\tcalc@relax#1|#2\tcalc@relax}%
+}
+\def\tcalc@mex@sort@a#1\tcalc@relax#2|#3|#4\tcalc@relax{%
+	\tcalc@ifmt{#4}
+		{\tcalc@ifmt{#1}
+			{\tcalc@mex@sort@iflt{#2}{#3}
+				{\tcalc@mex0\tcalc@relax{#2}{#3}}
+				{\tcalc@mex@ifneq{#2}{#3}
+					{\tcalc@mex0\tcalc@relax{#3}{#2}}
+					{\tcalc@mex0\tcalc@relax{#2}}}}
+			{\tcalc@mex@sort@iflt{#2}{#3}
+				{\tcalc@mex@sort@a\tcalc@relax#1|#2|\tcalc@relax{#3}}
+				{\tcalc@mex@ifneq{#2}{#3}
+					{\tcalc@mex@sort@a\tcalc@relax#1|#3|\tcalc@relax{#2}}
+					{\tcalc@mex@sort@a\tcalc@relax#1|#2|\tcalc@relax}}}}
+		{\tcalc@mex@sort@iflt{#2}{#3}
+			{\tcalc@ifmt{#1}
+				{\tcalc@mex@sort@a#2\tcalc@relax#3|#4\tcalc@relax}
+				{\tcalc@mex@sort@a#1|#2\tcalc@relax#3|#4\tcalc@relax}}
+			{\tcalc@mex@ifneq{#2}{#3}
+				{\tcalc@ifmt{#1}
+					{\tcalc@mex@sort@a#3\tcalc@relax#2|#4\tcalc@relax}
+					{\tcalc@mex@sort@a#1|#3\tcalc@relax#2|#4\tcalc@relax}}
+				{\tcalc@mex@sort@a#1\tcalc@relax#2|#4\tcalc@relax}}}%
+}
+\def\tcalc@mex@sort@iflt#1#2{%
+	\tcalc@mex@sort@digitarrange{#1}{#2}%
+}
+\def\tcalc@mex@sort@iflt@a#1#2\tcalc@relax#3#4\tcalc@relax{%
+	\tcalc@ifmt{#2#4}
+		{\csname tcalc@mex@iflt@\string#1@\string#3\endcsname}
+		{\csname tcalc@mex@iflt@\string#1@\string#3\endcsname
+			{\@firstoftwo}
+			{\csname tcalc@mex@iflt@\string#3@\string#1\endcsname
+				{\@secondoftwo}
+				{\tcalc@mex@sort@iflt@a#2\tcalc@relax#4\tcalc@relax}}}%
+}
+\def\tcalc@mex@sort@digitarrange#1#2{%
+	\tcalc@mex@sort@digitarrange@a|\tcalc@relax#1\tcalc@relax#2\tcalc@relax%
+}
+\def\tcalc@mex@sort@digitarrange@a#1|#2\tcalc@relax#3#4\tcalc@relax#5#6\tcalc@relax{%
+	\tcalc@ifmt{#4#6}
+		{\tcalc@mex@sort@iflt@a#3#1\tcalc@relax#5#2\tcalc@relax}
+		{\tcalc@ifmt{#4}
+			{\tcalc@mex@sort@digitarrange@a#3#1|#5#2\tcalc@relax0\tcalc@relax#6\tcalc@relax}
+			{\tcalc@ifmt{#6}
+				{\tcalc@mex@sort@digitarrange@a#3#1|#5#2\tcalc@relax#4\tcalc@relax0\tcalc@relax}
+				{\tcalc@mex@sort@digitarrange@a#3#1|#5#2\tcalc@relax#4\tcalc@relax#6\tcalc@relax}}}%
+}
+\def\tcalc@ifx#1#2{%
+	\ifx#1#2\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi%
+}
+\def\tcalc@ifmt#1{%
+	\ifx\tcalc@relax#1\tcalc@relax\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi%
+}
+\def\tcalc@mex@ignore#1#2\tcalc@mex@endignore{#1}
+\def\tcalc@mex@endignore{\tcalc@mex@endignore@}
+\def\tcalc@relax{\tcalc@relax@}
+\long\def\@firstoftwo#1#2{#1}
+\long\def\@secondoftwo#1#2{#2}
+\expandafter\def\csname tcalc@mex@add@0\endcsname#1{#11}
+\expandafter\def\csname tcalc@mex@add@1\endcsname#1{#12}
+\expandafter\def\csname tcalc@mex@add@2\endcsname#1{#13}
+\expandafter\def\csname tcalc@mex@add@3\endcsname#1{#14}
+\expandafter\def\csname tcalc@mex@add@4\endcsname#1{#15}
+\expandafter\def\csname tcalc@mex@add@5\endcsname#1{#16}
+\expandafter\def\csname tcalc@mex@add@6\endcsname#1{#17}
+\expandafter\def\csname tcalc@mex@add@7\endcsname#1{#18}
+\expandafter\def\csname tcalc@mex@add@8\endcsname#1{#19}
+\expandafter\def\csname tcalc@mex@iflt@0@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@1\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@2\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@3\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@4\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@5\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@6\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@0@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@2\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@3\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@4\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@5\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@6\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@1@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@3\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@4\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@5\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@6\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@2@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@4\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@5\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@6\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@3@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@4\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@5\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@6\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@4@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@4\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@5\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@6\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@5@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@4\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@5\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@6\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@7\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@6@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@4\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@5\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@6\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@7\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@8\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@7@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@4\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@5\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@6\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@7\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@8\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@8@9\endcsname{\@firstoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@0\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@1\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@2\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@3\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@4\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@5\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@6\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@7\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@8\endcsname{\@secondoftwo}
+\expandafter\def\csname tcalc@mex@iflt@9@9\endcsname{\@secondoftwo}
+\catcode`\@=12
