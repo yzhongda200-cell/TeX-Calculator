@@ -13,6 +13,7 @@ First, download the files and place them in your working directory. Then load th
 \input{nummult.tex} % for multiplication
 \input{nimsum.tex} % for nim-sum
 \input{ifcompare.tex} % for comparison
+\input{mex.tex} % for mex (minimum excluded value)
 ```
 
 The files are completely independent, so you only need to load the ones you actually use.
@@ -76,6 +77,24 @@ Examples:
 ```
 
 Like the arithmetic macros, `\ifcompare` is fully expandable from the first token and requires no registers.
+
+## Minimum Excluded Value
+
+The file `mex.tex` provides the expandable macro `\mex`.
+
+Syntax:
+
+```tex
+\mex{{<number1>}{<number2>}...}
+```
+
+Examples:
+
+```tex
+\mex{{3}{1}{6}{3}{0}{2}{4}}% expands to 5
+
+\mex{{4}{11}{2}{3}{7}}% expands to 0
+```
 
 ## Performance and Limitations
 
