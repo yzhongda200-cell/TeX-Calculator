@@ -11,6 +11,7 @@ First, download the files and place them in your working directory. Then load th
 ```tex
 \input{numadd.tex} % for addition and subtraction
 \input{nummult.tex} % for multiplication
+\input{numdiv.tex} % for division
 \input{nimsum.tex} % for nim-sum
 \input{ifcompare.tex} % for comparison
 \input{mex.tex} % for mex (minimum excluded value)
