@@ -1,0 +1,282 @@
+\catcode`\@=11\relax
+\def\zycalc@relax{\zycalc@relax@}
+\def\numdiv#1#2{%
+	\zycalc@numdiv@s{#1}{#2}\zycalc@numdiv@normal
+}
+\def\numdivround#1#2{%
+	\zycalc@numdiv@s{#1}{#2}\zycalc@numdiv@round
+}
+\def\zycalc@numdiv@a#1\zycalc@relax#2\zycalc@relax#3\zycalc@relax#4#5\zycalc@relax{%
+	\zycalc@numdiv@iflt{#1}{#3}
+			{\zycalc@ifx.{#4}
+				{\zycalc@numdiv@b#1\zycalc@relax.#2\zycalc@relax#3\zycalc@relax#5\zycalc@relax00}
+				{\zycalc@numdiv@a#4#1\zycalc@relax0#2\zycalc@relax#3\zycalc@relax#5\zycalc@relax}}
+			{\expandafter\zycalc@numdiv@a\romannumeral-`?\zycalc@numdiv@add{#1}{#3}{#2}\zycalc@relax#3\zycalc@relax#4#5\zycalc@relax}%
+}
+\def\zycalc@numdiv@b#1\zycalc@relax#2\zycalc@relax#3\zycalc@relax#4#5\zycalc@relax#6#7\zycalc@relax{%
+	\zycalc@ifmt{#7}
+		{\zycalc@numdiv@d{#2}}
+		{\zycalc@numdiv@iflt{#1}{#3}
+			{\zycalc@ifmt{#5}
+				{\zycalc@numdiv@b#4#1\zycalc@relax0#2\zycalc@relax#3\zycalc@relax0\zycalc@relax#7\zycalc@relax}
+				{\zycalc@numdiv@b#4#1\zycalc@relax0#2\zycalc@relax#3\zycalc@relax#5\zycalc@relax#7\zycalc@relax}}
+			{\expandafter\zycalc@numdiv@b\romannumeral-`?\zycalc@numdiv@add{#1}{#3}{#2}\zycalc@relax#3\zycalc@relax#4#5\zycalc@relax#6#7\zycalc@relax}}%
+}
+\def\zycalc@numdiv@d#1#2#3{#3#1\zycalc@relax{#2}}
+\def\zycalc@numdiv@s#1#2{%
+	\zycalc@numdiv@s@a#1\zycalc@relax#2\zycalc@relax
+}
+\def\zycalc@numdiv@s@a#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifx-{#1}
+		{\zycalc@ifx-{#3}
+			{\zycalc@numdiv@r{#2}{#4}{}}
+			{\zycalc@numdiv@r{#2}{#3#4}-}}
+		{\zycalc@ifx-{#3}
+			{\zycalc@numdiv@r{#1#2}{#4}-}
+			{\zycalc@numdiv@r{#1#2}{#3#4}{}}}%
+}
+\def\zycalc@numdiv@normal#1#2#3\zycalc@relax{\zycalc@numdiv@reverse{#3}}
+\def\zycalc@numdiv@round#1#2#3\zycalc@relax{%
+	\ifnum#1#2>4 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+		{\expandafter\zycalc@numdiv@reverse\expandafter{\romannumeral-`?\zycalc@numdiv@step{#3}}}
+		{\zycalc@numdiv@reverse{#3}}%
+}
+\def\zycalc@numdiv@reverse#1{%
+	\zycalc@numdiv@reverse@a#1\zycalc@relax
+}
+\def\zycalc@numdiv@reverse@a#1#2\zycalc@relax{%
+	\zycalc@ifx.{#1}
+		{\zycalc@numdiv@reverse@b#2;\zycalc@relax\zycalc@relax}
+		{\zycalc@numdiv@reverse@b#1#2;\zycalc@relax\zycalc@relax}%
+}
+\def\zycalc@numdiv@reverse@b#1#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\zycalc@numdiv@n{#3}}
+		{\zycalc@numdiv@reverse@b#2\zycalc@relax#1#3\zycalc@relax}%
+}
+\def\zycalc@numdiv@n#1{%
+	\zycalc@numdiv@n@a#1\zycalc@relax
+}
+\def\zycalc@numdiv@n@a#1#2\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\zycalc@numdiv@sign{#1}}
+		{\zycalc@ifx0{#1}
+			{\zycalc@numdiv@n@a#2\zycalc@relax}
+			{\zycalc@ifx.{#1}
+				{\zycalc@numdiv@sign{0.#2}}
+				{\zycalc@numdiv@sign{#1#2}}}}%
+}
+\def\zycalc@numdiv@sign#1#2{%
+	#2#1%
+}
+\def\zycalc@numdiv@digit{0000000000}
+\def\zydivisiondigit#1{%
+	\edef\zycalc@numdiv@digit{\zycalc@numdiv@set#1;\zycalc@relax\zycalc@relax}%
+}
+\def\zycalc@numdiv@set#1#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\zycalc@numdiv@set@a#3\zycalc@relax\zycalc@relax}
+		{\zycalc@numdiv@set#2\zycalc@relax#1#3\zycalc@relax}%
+}
+\def\zycalc@numdiv@set@a#1#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\ifx0#1 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+			{#3}
+			{\expandafter\zycalc@numdiv@set@a\romannumeral-`?\zycalc@numdiv@compadd{#1}{1}\zycalc@relax#30\zycalc@relax}}
+		{\expandafter\zycalc@numdiv@set@a\romannumeral-`?\zycalc@numdiv@compadd{#1#2}{1}\zycalc@relax#30\zycalc@relax}%
+}
+\def\zycalc@numdiv@c#1\zycalc@relax#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@numdiv@a0\zycalc@relax0\zycalc@relax#2\zycalc@relax#3\zycalc@relax#1;\zycalc@relax
+}
+\def\zycalc@numdiv@r#1#2{%
+	\zycalc@numdiv@r@a#1.\zycalc@relax#2\zycalc@relax
+}
+\def\zycalc@numdiv@r@a#1.#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifmt{#2}
+		{\zycalc@numdiv@r@b#3;\zycalc@relax#1\zycalc@relax}
+		{\zycalc@numdiv@r@c#3;\zycalc@relax#1.#2\zycalc@relax}%
+}
+\def\zycalc@numdiv@r@b#1#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifx0{#1}
+		{\zycalc@numdiv@r@b#2\zycalc@relax#3\zycalc@relax}
+		{\zycalc@numdiv@r@bb\zycalc@relax#1#2\zycalc@relax#3\zycalc@relax}%
+}
+\def\zycalc@numdiv@r@bb#1\zycalc@relax#2#3\zycalc@relax#4\zycalc@relax{%
+	\zycalc@ifmt{#3}
+		{\expandafter\zycalc@numdiv@c\zycalc@numdiv@digit\zycalc@relax#1\zycalc@relax#4.0\zycalc@relax}
+		{\zycalc@ifx.{#2}
+			{\zycalc@ifmt{#1}
+				{\zycalc@numdiv@r@d#3\zycalc@relax#4\zycalc@relax}
+				{\zycalc@numdiv@r@dd#1\zycalc@relax#3\zycalc@relax#4\zycalc@relax}}
+			{\zycalc@numdiv@r@bb#2#1\zycalc@relax#3\zycalc@relax#4\zycalc@relax}}%
+}
+\def\zycalc@numdiv@r@c#1#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifx0{#1}
+		{\zycalc@numdiv@r@c#2\zycalc@relax#3\zycalc@relax}
+		{\zycalc@numdiv@r@cc\zycalc@relax#1#2\zycalc@relax#3\zycalc@relax}%
+}
+\def\zycalc@numdiv@r@cc#1\zycalc@relax#2#3\zycalc@relax#4.\zycalc@relax{%
+	\zycalc@ifmt{#3}
+		{\expandafter\zycalc@numdiv@c\zycalc@numdiv@digit\zycalc@relax#1\zycalc@relax#4\zycalc@relax}
+		{\zycalc@ifx.{#2}
+			{\zycalc@ifmt{#1}
+				{\zycalc@numdiv@r@e#3\zycalc@relax#4.\zycalc@relax}
+				{\zycalc@numdiv@r@ee#1\zycalc@relax#3\zycalc@relax#4.\zycalc@relax}}
+			{\zycalc@numdiv@r@cc#2#1\zycalc@relax#3\zycalc@relax#4.\zycalc@relax}}%
+}
+\def\zycalc@numdiv@r@d#1#2\zycalc@relax#3\zycalc@relax{%
+	\zycalc@ifx0{#1}
+		{\zycalc@numdiv@r@d#2\zycalc@relax#30\zycalc@relax}
+		{\zycalc@numdiv@r@dd\zycalc@relax#1#2\zycalc@relax#3\zycalc@relax}%
+}
+\def\zycalc@numdiv@r@dd#1\zycalc@relax#2#3\zycalc@relax#4\zycalc@relax{%
+	\zycalc@ifmt{#3}
+		{\expandafter\zycalc@numdiv@c\zycalc@numdiv@digit\zycalc@relax#1\zycalc@relax#4.0\zycalc@relax}
+		{\zycalc@numdiv@r@dd#2#1\zycalc@relax#3\zycalc@relax#40\zycalc@relax}%
+}
+\def\zycalc@numdiv@r@e#1#2\zycalc@relax#3.#4#5.\zycalc@relax{%
+	\zycalc@ifx0{#1}
+		{\zycalc@ifmt{#5}
+			{\zycalc@numdiv@r@e#2\zycalc@relax#3#4.0.\zycalc@relax}
+			{\zycalc@numdiv@r@e#2\zycalc@relax#3#4.#5.\zycalc@relax}}
+		{\zycalc@numdiv@r@ee\zycalc@relax#1#2\zycalc@relax#3.#4#5.\zycalc@relax}%
+}
+\def\zycalc@numdiv@r@ee#1\zycalc@relax#2#3\zycalc@relax#4.#5#6.\zycalc@relax{%
+	\zycalc@ifmt{#3}
+		{\expandafter\zycalc@numdiv@c\zycalc@numdiv@digit\zycalc@relax#1\zycalc@relax#4.#5#6\zycalc@relax}
+		{\zycalc@ifmt{#6}
+			{\zycalc@numdiv@r@ee#2#1\zycalc@relax#3\zycalc@relax#4#5.0.\zycalc@relax}
+			{\zycalc@numdiv@r@ee#2#1\zycalc@relax#3\zycalc@relax#4#5.#6.\zycalc@relax}}%
+}
+\def\zycalc@numdiv@iflt#1#2{%
+	\zycalc@numdiv@iflt@a#1\zycalc@relax#2\zycalc@relax
+}
+\def\zycalc@numdiv@iflt@a#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifmt{#2#4}
+		{\ifnum#1<#3 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+		{\zycalc@ifmt{#2}
+			{\@firstoftwo}
+			{\zycalc@ifmt{#4}
+				{\zycalc@numdiv@iflt@a#1#2\zycalc@relax#30\zycalc@relax}
+				{\ifnum#1<#3 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+					{\zycalc@numdiv@iflt@b#2\zycalc@relax#4\zycalc@relax}
+					{\zycalc@numdiv@iflt@a#2\zycalc@relax#4\zycalc@relax}}}}%
+}
+\def\zycalc@numdiv@iflt@b#1#2\zycalc@relax#3#4\zycalc@relax{%
+	\zycalc@ifmt{#2#4}
+		{\ifnum#1>#3 \expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi}
+		{\zycalc@ifmt{#2}
+			{\@firstoftwo}
+			{\zycalc@ifmt{#4}
+				{\zycalc@numdiv@iflt@b#1#2\zycalc@relax#30\zycalc@relax}
+				{\ifnum#1>#3 \expandafter\@secondoftwo\else\expandafter\@firstoftwo\fi
+					{\zycalc@numdiv@iflt@b#2\zycalc@relax#4\zycalc@relax}
+					{\zycalc@numdiv@iflt@a#2\zycalc@relax#4\zycalc@relax}}}}%
+}
+\def\zycalc@numdiv@add#1#2#3{%
+	\expandafter\zycalc@numdiv@add@a\expandafter{\romannumeral-`?\zycalc@numdiv@compadd{#1}{#2}}{#3}%
+}
+\def\zycalc@numdiv@add@a#1#2{%
+	\expandafter\zycalc@numdiv@add@b\expandafter{\romannumeral-`?\zycalc@numdiv@step{#2}}{#1}%
+}
+\def\zycalc@numdiv@add@b#1#2{#2\zycalc@relax#1}
+\def\zycalc@numdiv@compadd#1#2{%
+	\zycalc@numdiv@compadd@a[1]\zycalc@relax#1\zycalc@relax#2\zycalc@relax
+}
+\def\zycalc@numdiv@compadd@a#1[#2]\zycalc@relax#3#4\zycalc@relax#5#6\zycalc@relax{%
+	\zycalc@ifmt{#4#6}
+		{\expandafter\zycalc@numdiv@compadd@b\number\csname zycalc@numdiv@add@#3@#5@#2*\endcsname{}{#1}}
+		{\zycalc@ifmt{#6}
+			{\expandafter\zycalc@numdiv@compadd@a\romannumeral-`?\csname zycalc@numdiv@add@#3@#5@#2*\endcsname{#1}\zycalc@relax#4\zycalc@relax0\zycalc@relax}
+			{\zycalc@ifmt{#4}
+				{\expandafter\zycalc@numdiv@compadd@a\romannumeral-`?\csname zycalc@numdiv@add@#3@#5@#2*\endcsname{#1}\zycalc@relax0\zycalc@relax#6\zycalc@relax}
+				{\expandafter\zycalc@numdiv@compadd@a\romannumeral-`?\csname zycalc@numdiv@add@#3@#5@#2*\endcsname{#1}\zycalc@relax#4\zycalc@relax#6\zycalc@relax}}}%
+}
+\def\zycalc@numdiv@compadd@b#1[#2]#3{%
+	\zycalc@ifx0{#1}
+		{\zycalc@ifmt{#3}
+			{0}
+			{#3}}
+		{#3#1}%
+}
+\def\zycalc@numdiv@step#1{%
+	\zycalc@numdiv@step@a\zycalc@relax#1\zycalc@relax%
+}
+\def\zycalc@numdiv@step@a#1\zycalc@relax#2{%
+	\zycalc@ifx\zycalc@relax{#2}
+		{#11}
+		{\zycalc@ifx9{#2}
+			{\zycalc@numdiv@step@a#10\zycalc@relax}
+			{\zycalc@ifx.{#2}
+				{\zycalc@numdiv@step@a#1.\zycalc@relax}
+				{\zycalc@ignorerelax\csname zycalc@numdiv@step@#2\endcsname{#1}}}}%
+}
+\def\zycalc@ignorerelax#1\zycalc@relax{#1}
+\def\zycalc@ifmt#1{%
+	\ifx\zycalc@relax#1\zycalc@relax
+		\expandafter\@firstoftwo
+	\else
+		\expandafter\@secondoftwo
+	\fi
+}
+\def\zycalc@#1{#1}
+\def\zycalc@ifx#1#2{%
+	\ifx#1#2%
+		\expandafter\@firstoftwo
+	\else
+		\expandafter\@secondoftwo
+	\fi
+}
+\long\def\@firstoftwo#1#2{#1}
+\long\def\@secondoftwo#1#2{#2}
+\expandafter\def\csname zycalc@comp@0\endcsname{9}
+\expandafter\def\csname zycalc@comp@1\endcsname{8}
+\expandafter\def\csname zycalc@comp@2\endcsname{7}
+\expandafter\def\csname zycalc@comp@3\endcsname{6}
+\expandafter\def\csname zycalc@comp@4\endcsname{5}
+\expandafter\def\csname zycalc@comp@5\endcsname{4}
+\expandafter\def\csname zycalc@comp@6\endcsname{3}
+\expandafter\def\csname zycalc@comp@7\endcsname{2}
+\expandafter\def\csname zycalc@comp@8\endcsname{1}
+\expandafter\def\csname zycalc@comp@9\endcsname{0}
+\begingroup
+\count0=0
+\count1=0
+\count2=0
+\countdef\resultone=3 \resultone=0
+\countdef\resulttwo=4 \resulttwo=0
+\def\zycalc@define{%
+	\resultone=\count0
+	\advance\resultone\count1
+	\advance\resultone\count2
+	\resulttwo=\resultone
+	\divide\resulttwo by 10
+	\count5=\resulttwo
+	\multiply\count5 by 10
+	\advance\resultone by -\count5
+	\ifnum\count2<2 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+		{\expandafter\xdef\csname zycalc@numdiv@add@\the\count0@\the\count1@\the\count2\endcsname##1{##1\the\resultone[\the\resulttwo]}%
+			\expandafter\xdef\csname zycalc@numdiv@add@\the\count0@\expandafter\zycalc@\expandafter{\csname zycalc@comp@\the\count1\endcsname}@\the\count2*\endcsname##1{##1\the\resultone[\the\resulttwo]}%
+			\ifnum\count0=9 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+				{\ifnum\count1=9 \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+					{\advance\count2 by 1
+						\count0=0
+						\count1=0}
+					{\advance\count1 by 1
+						\count0=0}}
+				{\advance\count0 by 1}
+					\zycalc@define}
+		{}%
+}
+\zycalc@define
+\endgroup
+\expandafter\def\csname zycalc@numdiv@step@0\endcsname#1{#11}
+\expandafter\def\csname zycalc@numdiv@step@1\endcsname#1{#12}
+\expandafter\def\csname zycalc@numdiv@step@2\endcsname#1{#13}
+\expandafter\def\csname zycalc@numdiv@step@3\endcsname#1{#14}
+\expandafter\def\csname zycalc@numdiv@step@4\endcsname#1{#15}
+\expandafter\def\csname zycalc@numdiv@step@5\endcsname#1{#16}
+\expandafter\def\csname zycalc@numdiv@step@6\endcsname#1{#17}
+\expandafter\def\csname zycalc@numdiv@step@7\endcsname#1{#18}
+\expandafter\def\csname zycalc@numdiv@step@8\endcsname#1{#19}
+\catcode`\@=12\relax
